@@ -4,7 +4,8 @@
   "description": "Backend QA automation",
   "main": "index.js",
   "scripts": {
-    "test": ""
+    "test": "newman run ./TODOIS_APP/tests/backend/collection/Todois.postman_collection.json -e ./TODOIS_APP/tests/backend/envVariables/QA.postman_environment.json",
+    "test-html-report": "newman run ./TODOIS_APP/tests/backend/collection/Todois.postman_collection.json -e ./TODOIS_APP/tests/backend/envVariables/QA.postman_environment.json -r htmlextra --reporter-htmlextra-export ./TODOIS_APP/tests/backend/reports"
   },
   "repository": {
     "type": "git",
