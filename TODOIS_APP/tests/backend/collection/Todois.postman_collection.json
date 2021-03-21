@@ -1,0 +1,858 @@
+{
+	"info": {
+		"_postman_id": "37b97b5e-f608-42fb-97a6-f647f1175664",
+		"name": "Todois",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "PROJECT",
+			"item": [
+				{
+					"name": "Create Project",
+					"item": [
+						{
+							"name": "Create a new project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var name = pm.environment.get(\"projectName\");\r",
+											"pm.test(\"Project Name is correct\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(name);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"projectId\", jsonData.id);"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{projectName}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{projectURL}}",
+									"host": [
+										"{{projectURL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create projects",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var name = pm.variables.get(\"projectNameDDT\");\r",
+											"pm.test(\"Project Name is correct\", function () {\r",
+											"    pm.expect(jsonData.name).to.eql(name);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"{{projectNameDDT}}\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{projectURL}}",
+									"host": [
+										"{{projectURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get Project",
+					"item": [
+						{
+							"name": "Get project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var id = pm.environment.get(\"projectId\");\r",
+											"pm.test(\"Project Id is correct\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.id).to.eql(id);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{projectURL}}/{{projectId}}",
+									"host": [
+										"{{projectURL}}"
+									],
+									"path": [
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update Project",
+					"item": [
+						{
+							"name": "Update project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"AM Updated\"\r\n}"
+								},
+								"url": {
+									"raw": "{{projectURL}}/{{projectId}}",
+									"host": [
+										"{{projectURL}}"
+									],
+									"path": [
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete Project",
+					"item": [
+						{
+							"name": "Delete project",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{projectURL}}/{{projectId}}",
+									"host": [
+										"{{projectURL}}"
+									],
+									"path": [
+										"{{projectId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "TASKS",
+			"item": [
+				{
+					"name": "Get active tasks",
+					"item": [
+						{
+							"name": "Get active tasks",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"array\",\r",
+											"    \"properties\": {\r",
+											"        \"id\": { \"type\" : \"number\"},\r",
+											"        \"assigner\": { \"type\" : \"number\"},\r",
+											"        \"project_id\": { \"type\" : \"number\"},\r",
+											"        \"section_id\": { \"type\" : \"number\"},\r",
+											"        \"order\": { \"type\" : \"number\"},\r",
+											"        \"content\": { \"type\" : \"string\"},\r",
+											"        \"completed\": { \"type\" : \"boolean\"},\r",
+											"        \"label_ids\": { \"type\" : \"array\"},\r",
+											"        \"priority\": { \"type\" : \"number\"},\r",
+											"        \"comment_count\": { \"type\" : \"number\"},\r",
+											"        \"creator\": { \"type\" : \"number\"},\r",
+											"        \"created\": { \"type\" : \"string\"},\r",
+											"        \"url\": { \"type\" : \"string\"},\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Validate JSON schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}",
+									"host": [
+										"{{tasksURL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get active tasks - Negative scenario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Error in the request, Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}",
+									"host": [
+										"{{tasksURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create a new task",
+					"item": [
+						{
+							"name": "Create a new task",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var content = pm.environment.get(\"taskContent\");\r",
+											"pm.test(\"Task content is correct\", function () {\r",
+											"    pm.expect(jsonData.content).to.eql(content);\r",
+											"});\r",
+											"\r",
+											"pm.environment.set(\"taskId\", jsonData.id);\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\": {\r",
+											"        \"id\": { \"type\" : \"number\"},\r",
+											"        \"assigner\": { \"type\" : \"number\"},\r",
+											"        \"project_id\": { \"type\" : \"number\"},\r",
+											"        \"section_id\": { \"type\" : \"number\"},\r",
+											"        \"order\": { \"type\" : \"number\"},\r",
+											"        \"content\": { \"type\" : \"string\"},\r",
+											"        \"completed\": { \"type\" : \"boolean\"},\r",
+											"        \"label_ids\": { \"type\" : \"array\"},\r",
+											"        \"priority\": { \"type\" : \"number\"},\r",
+											"        \"comment_count\": { \"type\" : \"number\"},\r",
+											"        \"creator\": { \"type\" : \"number\"},\r",
+											"        \"created\": { \"type\" : \"string\"},\r",
+											"        \"url\": { \"type\" : \"string\"},\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Validate JSON schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\": \"{{taskContent}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{tasksURL}}",
+									"host": [
+										"{{tasksURL}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new task - Negative scenario",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Error in the request, Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"hello\": \"{{taskContent}}\"\r\n}"
+								},
+								"url": {
+									"raw": "{{tasksURL}}",
+									"host": [
+										"{{tasksURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Get an active task",
+					"item": [
+						{
+							"name": "Get an active task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var jsonData = pm.response.json();\r",
+											"var taskId = pm.environment.get(\"taskId\");\r",
+											"pm.test(\"Task Id content is correct\", function () {\r",
+											"    pm.expect(jsonData.id).to.eql(taskId);\r",
+											"});\r",
+											"\r",
+											"const schema = {\r",
+											"    \"type\": \"object\",\r",
+											"    \"properties\": {\r",
+											"        \"id\": { \"type\" : \"number\"},\r",
+											"        \"assigner\": { \"type\" : \"number\"},\r",
+											"        \"project_id\": { \"type\" : \"number\"},\r",
+											"        \"section_id\": { \"type\" : \"number\"},\r",
+											"        \"order\": { \"type\" : \"number\"},\r",
+											"        \"content\": { \"type\" : \"string\"},\r",
+											"        \"completed\": { \"type\" : \"boolean\"},\r",
+											"        \"label_ids\": { \"type\" : \"array\"},\r",
+											"        \"priority\": { \"type\" : \"number\"},\r",
+											"        \"comment_count\": { \"type\" : \"number\"},\r",
+											"        \"creator\": { \"type\" : \"number\"},\r",
+											"        \"created\": { \"type\" : \"string\"},\r",
+											"        \"url\": { \"type\" : \"string\"},\r",
+											"    }\r",
+											"}\r",
+											"\r",
+											"pm.test(\"Validate JSON schema\", () => {\r",
+											"    pm.response.to.have.jsonSchema(schema);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type header is application/json\", () => {\r",
+											"  pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get an active task - Negative scenario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Error in the request, Status code is 400\", function () {\r",
+											"    pm.response.to.have.status(400);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Update a task",
+					"item": [
+						{
+							"name": "Updating a task",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\": \"{{taskContent}} - Updated\"\r\n}"
+								},
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Updating a task - Negative scenario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Error in the request, Status code is 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "X-Requested-Id",
+										"value": "$(uuidgen)",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"content\": \"{{taskContent}} - Updated\"\r\n}"
+								},
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Change a task status to complete",
+					"item": [
+						{
+							"name": "Completing a task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}/close",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"close"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Completing a task - Negative scenario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Method not allowed, Status code is 405\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}/close",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"close"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reopen a task",
+					"item": [
+						{
+							"name": "Reopen a task",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}/reopen",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"reopen"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Reopen a task - Negative scenario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Method not allowed, Status code is 405\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}/reopen",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}",
+										"reopen"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Delete a task",
+					"item": [
+						{
+							"name": "Delete a task",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}/{{taskId}}",
+									"host": [
+										"{{tasksURL}}"
+									],
+									"path": [
+										"{{taskId}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete a task - Negative scenario",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"pm.test(\"Method not allowed, Status code is 405\", function () {\r",
+											"    pm.response.to.have.status(405);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{tasksURL}}",
+									"host": [
+										"{{tasksURL}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"auth": {
+		"type": "bearer",
+		"bearer": [
+			{
+				"key": "password",
+				"value": "{{token}}",
+				"type": "string"
+			},
+			{
+				"key": "token",
+				"value": "{{token}}",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"pm.test(\"Status code is 2xx\", function () {",
+					"    pm.response.to.be.success;",
+					"});",
+					"var timeResponse = pm.environment.get(\"timeResponse\");",
+					"timeResponse = parseInt(timeResponse);",
+					"",
+					"pm.test(`Response time is less than ${timeResponse}ms`, function () {",
+					"    pm.expect(pm.response.responseTime).to.be.below(timeResponse);",
+					"});"
+				]
+			}
+		}
+	]
+}
