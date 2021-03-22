@@ -34,11 +34,11 @@ npm install
 - Open the QA.postman_environment.json file and replace the value of the token for your own API key.
 
 ```
-		{
-			"key": "token",
-			"value": "PUT_YOUR_API_TOKEN_HERE",
-			"enabled": true
-		}
+{
+	"key": "token",
+	"value": "PUT_YOUR_API_TOKEN_HERE",
+	"enabled": true
+}
 ```
 
 ## Running the tests
